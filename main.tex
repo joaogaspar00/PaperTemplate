@@ -1,0 +1,52 @@
+\documentclass[11pt,a4paper]{article}
+
+\input{config}
+
+\title{\textbf{The Subtitle} \\ \vspace{0.3cm} The Subtitle}
+
+\date{\today}
+
+\author{Name \\ Email \\ \\ University, City, Country}
+
+\begin{document}
+\nocite{*}
+
+% 1. Remove a sidebar para o título e resumo
+\newgeometry{left=30mm, right=30mm, top=30mm, bottom=30mm}
+
+\maketitle
+
+% Usamos um grupo para garantir que o abstract não force quebra de página
+\input{abstr}
+
+\addtoc
+
+\restoregeometry
+
+\newpage
+
+\input{text}
+
+\input{sidebar}
+
+\input{equations}
+
+\input{references}
+
+\input{tabels}
+
+\input{code}
+
+\section{Extra Section 1}
+\section{Extra Section 2}
+\section{Extra Section 3}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}       
+
+\appendix
+
+\input{appen.tex}
+
+
+\end{document}
