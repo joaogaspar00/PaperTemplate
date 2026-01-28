@@ -1,0 +1,17 @@
+\section{Sidebar Examples}
+
+Exemplo de texto com uma sidenote\sidenote{Esta é uma sidenote que agora é gerenciada pelo \texttt{marginfix}. Se houver outra nota logo abaixo, o pacote garantirá os 8pt de distância.} que funciona corretamente.
+
+\lipsum[1]
+
+Texto com uma figura lateral e uma nota logo em seguida para testar a colisão.
+
+\sidefigure[fig:exemplo]{example-image-a}{Legenda da figura lateral que deve respeitar o espaço.}
+
+\sidenote{Esta nota deve aparecer logo abaixo da figura, respeitando o \texttt{marginparpush} de 8pt, sem sobrepor.} 
+
+
+
+\lipsum[2]
+
+Outra nota\sidenote{Mais uma nota para testar o alinhamento vertical.} para verificar se o texto flui bem.

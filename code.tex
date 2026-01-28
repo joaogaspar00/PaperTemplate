@@ -1,0 +1,58 @@
+\section{Exemplos de Código}
+
+Nesta seção, apresentamos como incluir fragmentos de código de diferentes linguagens de programação utilizando o pacote \texttt{listings}.
+
+\subsection{MATLAB}
+O código MATLAB é formatado com destaque para funções matemáticas e comentários com o símbolo \texttt{\%}.
+
+\begin{lstlisting}[language=Matlab, caption={Cálculo de somatório em MATLAB}]
+% Definir o limite
+n = 100;
+% Calcular a soma usando vetorização
+soma = sum(1:n);
+disp(['A soma total é: ', num2color(soma)]);
+\end{lstlisting}
+
+\subsection{Linguagem C}
+Para C, o realce foca em diretivas de pré-processador e tipos de dados.
+
+\begin{lstlisting}[language=C, caption={Estrutura básica em C}]
+#include <stdio.h>
+
+int main() {
+    int n = 10;
+    for(int i = 0; i < n; i++) {
+        printf("Índice: %d\n", i);
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Python}
+Python utiliza uma sintaxe limpa, onde a indentação é fundamental. O \texttt{listings} preserva os espaços corretamente.
+
+\begin{lstlisting}[language=Python, caption={Função recursiva em Python}]
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(5))
+\end{lstlisting}
+
+\subsection{Pseudocódigo}
+Para pseudocódigo, removemos as definições de linguagem para tratar o texto de forma genérica, mantendo a numeração de linhas.
+
+\begin{lstlisting}[language={}, caption={Algoritmo de Troca}]
+INÍCIO
+    VARIAVEL temp, a, b
+    LEIA a, b
+    temp <- a
+    a <- b
+    b <- temp
+    ESCREVA a, b
+FIM
+\end{lstlisting}
+
+\sidenote{Pode ajustar as cores do código no preâmbulo alterando os valores de \texttt{codegreen} ou \texttt{codepurple}.}

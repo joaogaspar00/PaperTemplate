@@ -1,0 +1,34 @@
+\section{Equations}
+
+As equações em \LaTeX{} podem ser escritas de três formas principais, dependendo do contexto e da importância do que está a ser demonstrado.
+
+\subsection{Matemática no Texto (Inline)}
+Para incluir símbolos no meio de uma frase, utilizamos o cifrão. Por exemplo, a relação entre massa e energia é definida por $E = mc^2$, onde $E$ representa a energia, $m$ a massa e $c$ a velocidade da luz no vácuo.
+
+\subsection{Equações em Destaque (Display Mode)}
+Quando uma fórmula é central para o argumento, deve ser colocada em destaque. Podemos fazer isso sem numeração usando \verb|\[ ... \]|:
+
+\[ 
+\int_{a}^{b} f(x) \, dx = F(b) - F(a) 
+\]
+
+Ou com numeração automática para referências futuras, utilizando o ambiente \texttt{equation}:
+
+\begin{equation}
+    \mathcal{F}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i\omega t} \, dt
+    \label{eq:fourier}
+\end{equation}
+
+Podemos referenciar a Transformada de Fourier acima como a Equação \ref{eq:fourier}.
+
+\subsection{Alinhamento de Múltiplas Linhas}
+Para demonstrações passo a passo, utilizamos o ambiente \texttt{align}. O símbolo \texttt{\&} define onde as linhas devem alinhar-se (geralmente no sinal de igual):
+
+\begin{align}
+    (x + y)^2 &= (x + y)(x + y) \\
+              &= x^2 + xy + yx + y^2 \\
+              &= x^2 + 2xy + y^2
+\end{align}
+
+\subsection{Uso em Notas Laterais}
+Uma vantagem do seu modelo é a capacidade de explicar termos técnicos na margem sem poluir o texto principal\sidenote{A constante de Euler-Mascheroni é definida como: $\gamma = \lim_{n \to \infty} \left( \sum_{k=1}^{n} \frac{1}{k} - \ln n \right)$.}.
