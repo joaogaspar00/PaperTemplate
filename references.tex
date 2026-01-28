@@ -1,0 +1,39 @@
+\section{Managing Bibliographic References}
+
+To manage citations and the bibliography in this document, we use the \textbf{BibTeX} system. This allows for a clean separation between your content and the metadata of your sources.
+
+\subsection{The .bib File}
+All your references must be stored in a plain text file with the extension \texttt{.bib} (e.g., \texttt{references.bib}). Each entry follows a specific format:
+
+\subsection{Citing in Text}
+To cite a source, use the command \texttt{\textbackslash cite\{key\}}. For example, citing the multirotor study \cite{miller2024stochastic} will generate a numerical or author-year anchor depending on the chosen style.
+
+\sidenote{The \texttt{key} is the first string after the curly bracket in the BibTeX entry (e.g., \texttt{miller2024stochastic}).}
+
+\subsection{Displaying the Bibliography}
+To render the list of references at the end of your document, add the following commands1:
+
+\begin{lstlisting}[language=TeX]
+\bibliographystyle{plain} % Styles: plain, ieeetr, alpha, etc.
+\bibliography{refs} % Points to references.bib
+\end{lstlisting}
+
+\subsection{Cite in Sidebar}
+
+Para citar na barra laterar \sideref{miller2024stochastic}\sideref{miller2024stochastic}\sideref{patterson2021distributed}\sideref{silva2026multiagent}\sideref{santos2023vortex}
+
+citação normal \cite{miller2024stochastic}
+
+\subsection{Compilation Workflow}
+When using bibliography files, the compilation order is specific to ensure all links and numbers are resolved:
+\sidenote{If you are using an IDE like Overleaf or TeXstudio, this sequence is usually handled automatically by "Build" or "Compile".}
+
+\begin{enumerate}
+    \item \texttt{pdflatex main.tex} (Collects citations)
+    \item \texttt{bibtex main} (Processes the \texttt{.bib} file)
+    \item \texttt{pdflatex main.tex} (Links citations to bibliography)
+    \item \texttt{pdflatex main.tex} (Finalizes cross-references)
+\end{enumerate}
+
+\sideref{patterson2021distributed}\sideref{santos2023vortex}
+
