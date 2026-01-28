@@ -1,0 +1,249 @@
+% =============================================================================
+% PREAMBLE CONFIGURATION
+% =============================================================================
+
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc} % UTF-8 encoding for special characters
+
+% --- Document Layout & Margins ---
+\usepackage[
+  left=30mm,
+  right=55mm,          % Wide right margin for sidenotes and bibliography
+  top=30mm,
+  bottom=30mm,
+  marginparwidth=40mm, % Width of the sidenotes/margin area
+  marginparsep=6mm     % Distance between main text and margin area
+]{geometry}
+
+% --- Language and Fonts ---
+\usepackage[T1]{fontenc}    % Use modern font encoding for special characters
+
+% --- Mathematics Support ---
+\usepackage{amsmath}  % Advanced math typesetting (align, etc.)
+\usepackage{amssymb}  % Extended mathematical symbols
+
+% --- Visual Styling ---
+\usepackage{xcolor}   % Color support
+\usepackage{graphicx} % Support for including images
+\usepackage{caption}  % Customizing figure/table captions
+\usepackage{multicol} % Support for multi-column layouts
+\usepackage{fancyhdr} % Custom headers and footers
+\usepackage{tocloft}  % Detailed control over Table of Contents styling
+
+% --- Margin & Sidenote Management ---
+\usepackage{marginnote} % Basic marginal notes
+\usepackage{marginfix}  % Prevents marginal notes from overlapping or overflowing pages
+\setlength{\marginparpush}{8pt} % Minimum vertical space between margin elements
+\usepackage{changepage} % Para expandir a largura
+\usepackage{caption}    % Para captionof
+\usepackage{tabularx}
+
+% --- Bibliographic Management (Natbib + Usebib) ---
+\usepackage[round, authoryear]{natbib} % Author-year citation style
+\usepackage{bibentry}                  % Allows extracting full BibTeX entries into text
+\usepackage{usebib}                    % Allows direct access to specific .bib fields (e.g., titles)
+\bibinput{refs}                        % Loads the bibliography database (refs.bib)
+\nobibliography* % Initializes bibentry system
+
+% --- Utilities ---
+\usepackage{lipsum}   % Dummy text generation for testing layout
+\usepackage{etoolbox} % Programming tools for LaTeX macros
+\usepackage{siunitx}
+
+% --- Hyperlinks Configuration ---
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue,    % Color for internal links (ToC, sections)
+    urlcolor=blue,     % Color for external URLs
+    citecolor=blue,    % Color for standard citations
+    anchorcolor=blue,
+    bookmarksnumbered=false
+]{hyperref}
+
+
+% =============================================================================
+% CUSTOM MACROS AND COMMANDS
+% =============================================================================
+
+% --- Table of Contents Styling ---
+% Adds dots for Section entries and adjusts dot density
+\renewcommand{\cftsecdotsep}{\cftdotsep} 
+\renewcommand{\cftdotsep}{1}
+
+\newcommand{\addtoc}{
+    {
+    \hypersetup{linkcolor=black} % Keep ToC links black for professional look
+    \renewcommand{\contentsname}{Índice} % Força o nome aqui, se preferir
+    \setcounter{tocdepth}{1}     % Show only Sections in the ToC
+    \small
+    \tableofcontents
+    }
+}
+
+% --- Header and Footer (Fancyhdr com Extramarks) ---
+\usepackage{extramarks} % Necessário para usar \firstleftmark
+
+\pagestyle{fancy}
+\fancyhf{} % Limpa os padrões
+\renewcommand{\headrulewidth}{0pt} % Sem linha horizontal
+
+% L: Imprime a primeira seção que aparecer na página. 
+% Se não houver nova seção, mantém a atual.
+\fancyhead[L]{\small\firstleftmark} 
+
+\fancyhead[R]{\small\thepage} % Número da página à direita
+
+% Ajuste para formatar o que vai para o mark (Número + Nome)
+\renewcommand{\sectionmark}[1]{%
+  \markboth{\thesection\enskip #1}{}%
+}
+
+% Estilo para páginas "plain" (início de capítulos ou onde houver \thispagestyle{plain})
+\fancypagestyle{plain}{
+  \fancyhf{} 
+  \fancyfoot[C]{\small\thepage}
+}
+
+\usepackage[abspage]{zref}
+\definecolor{darkgrey}{RGB}{60,60,60}
+
+\makeatletter % Necessário para as macros que usam @
+
+% 1. --- Custom Sidenote Commands ---
+\newcounter{sidenote}
+\newcommand{\sidenote}[1]{%
+  \refstepcounter{sidenote}%
+  \textsuperscript{\hyperref[sidenote:\thesidenote]{\textcolor{blue}{\thesidenote}}}%
+  \marginpar{%
+    \raggedright
+    \scriptsize\textcolor{blue}{\thesidenote}.\,\textcolor{darkgrey}{#1}%
+  }%
+  \label{sidenote:\thesidenote}%
+}
+
+% 2. --- Professional Side Bibliography Macro (\sideref) ---
+\newcounter{sideref}
+\newcommand{\sideref}[1]{%
+    \ifcsname myrefnum@#1\endcsname
+        \edef\currentrefnum{\csname myrefnum@#1\endcsname}%
+    \else
+        \stepcounter{sideref}%
+        \expandafter\xdef\csname myrefnum@#1\endcsname{\thesideref}%
+        \edef\currentrefnum{\thesideref}%
+    \fi
+    % Registo de página robusto
+    \zref@labelbyprops{curr:#1.\thesideref}{abspage}%
+    \edef\this@page{\zref@extractdefault{curr:#1.\thesideref}{abspage}{\the\value{abspage}}}%
+    % Link no texto
+    \textsuperscript{\hyperref[sidemargin:#1.\this@page]{\textcolor{blue}{[\currentrefnum]}}}%
+    % Conteúdo na margem (uma vez por página)
+    \ifcsname pageref@#1@\this@page\endcsname
+    \else
+        \marginpar{%
+            \raggedright
+            \scriptsize
+            \textcolor{blue}{Ref.~\currentrefnum}\,%
+            \textcolor{darkgrey}{%
+                \begin{NoHyper}
+                    \citeauthor{#1}
+                    (\citeyear{#1})
+                    \textit{\usebibentry{#1}{title}} 
+                \end{NoHyper}
+            }%
+            \label{sidemargin:#1.\this@page}%
+        }%
+        \global\expandafter\gdef\csname pageref@#1@\this@page\endcsname{true}%
+    \fi
+}
+
+% 3. --- Side Figures ---
+\newcommand{\sidefigure}[3][]{%
+  \marginpar{%
+    \centering
+    \includegraphics[width=\marginparwidth]{#2}%
+    \vspace{2pt} 
+    % Aplicar cinzento à legenda da figura na margem
+    \captionsetup{labelfont={color=blue,scriptsize}, font={color=darkgrey,scriptsize}}%
+    \captionof{figure}{#3}%
+    \ifx\\#1\\ \else \label{#1} \fi
+  }%
+}
+
+% 4. --- Custom Sidetable Command (Com Label) ---
+\newcommand{\sidetable}[5]{% #1: Label, #2: Cabeçalho 1, #3: Cabeçalho 2, #4: Cabeçalho 3, #5: Conteúdo
+  \marginpar{%
+    \raggedright
+    \renewcommand{\arraystretch}{1.3}
+    \captionsetup{
+        type=table, 
+        labelfont={color=blue,tiny}, 
+        font={color=darkgrey,tiny}, 
+        skip=4pt,
+        justification=raggedright,
+        singlelinecheck=false
+    }
+    \tiny
+    \setlength{\tabcolsep}{2pt}
+    \begin{tabularx}{\marginparwidth}{@{} l X l @{}}
+      \hline
+      \textbf{#2} & \textbf{#3} & \textbf{#4} \\ \hline
+      #5 \\ \hline
+    \end{tabularx}
+    \captionof{table}{Nomenclatura.}
+    \label{#1} % A label deve vir logo após o captionof
+  }%
+}
+
+
+\makeatother
+
+% Helper for figure referencing
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+
+% --- Caption Styling ---
+\captionsetup[figure]{
+  labelformat=simple,
+  labelsep=colon,
+  name=Fig.,
+  labelfont={color=blue,scriptsize},
+  textfont={scriptsize},
+  justification=raggedright,
+  singlelinecheck=false
+}
+
+% =============================================================================
+% CODE LISTINGS CONFIGURATION
+% =============================================================================
+
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small, 
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    frame=single,
+    % Support for Portuguese/Spanish special characters in code
+    literate={á}{{\'a}}1 {ã}{{\~a}}1 {â}{{\^a}}1 {à}{{\`a}}1 {Á}{{\'A}}1 {Ã}{{\~A}}1 {Â}{{\^A}}1 {À}{{\`A}}1
+             {é}{{\'e}}1 {ê}{{\^e}}1 {É}{{\'E}}1 {Ê}{{\^E}}1
+             {í}{{\'i}}1 {Í}{{\'I}}1
+             {ó}{{\'o}}1 {õ}{{\~o}}1 {ô}{{\^o}}1 {Ó}{{\'O}}1 {Õ}{{\~O}}1 {Ô}{{\^O}}1
+             {ú}{{\'u}}1 {Ú}{{\'U}}1
+             {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+}
