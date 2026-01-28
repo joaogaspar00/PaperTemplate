@@ -1,0 +1,23 @@
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{\numberline {1}Long Text}{2}{section.1}%
+\contentsline {section}{\numberline {2}Sidebar Examples}{3}{section.2}%
+\contentsline {section}{\numberline {3}Equations}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Matemática no Texto (Inline)}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Equações em Destaque (Display Mode)}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Alinhamento de Múltiplas Linhas}{4}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Uso em Notas Laterais}{4}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Managing Bibliographic References}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}The .bib File}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Citing in Text}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Displaying the Bibliography}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Cite in Sidebar}{4}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Compilation Workflow}{5}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Exemplos de Código}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}MATLAB}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Linguagem C}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Python}{6}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Pseudocódigo}{6}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Extra Section 1}{6}{section.6}%
+\contentsline {section}{\numberline {7}Extra Section 2}{6}{section.7}%
+\contentsline {section}{\numberline {8}Extra Section 3}{6}{section.8}%
+\contentsline {section}{\numberline {A}Appendix 123}{6}{appendix.A}%
